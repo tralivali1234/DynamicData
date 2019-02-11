@@ -1,9 +1,13 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reactive.Linq;
 using DynamicData.Annotations;
 
 namespace DynamicData.Cache.Internal
 {
+
+
     internal class QueryWhenChanged<TObject, TKey, TValue>
     {
         private readonly IObservable<IChangeSet<TObject, TKey>> _source;
@@ -19,8 +23,7 @@ namespace DynamicData.Cache.Internal
         {
             if (_itemChangedTrigger == null)
             {
-                return _source
-                    .Scan((Cache<TObject, TKey>)null, (cache, changes) =>
+                return _source.Scan((Cache<TObject, TKey>)null, (cache, changes) =>
                     {
                         if (cache == null)
                             cache = new Cache<TObject, TKey>(changes.Count);

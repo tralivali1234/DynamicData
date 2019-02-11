@@ -1200,6 +1200,21 @@ namespace DynamicData
             return source.QueryWhenChanged(query => new ReadOnlyCollectionLight<TObject>(query.Items));
         }
 
+        public static IObservable<IReadOnlyCollection<TObject>> ToCollection<TObject, TKey, TTransform>(this IObservable<IChangeSet<TObject, TKey>> source)
+        {
+            return source.QueryWhenChanged(query => new ReadOnlyCollectionLight<TObject>(query.Items));
+        }
+
+
+        public static IObservable<TTransform> ToCollection<TObject, TKey, TTransform>(this IObservable<IChangeSet<TObject, TKey>> source
+            , Func<IEnumerable<TObject>, TTransform> valueSelector)
+        {
+            return source.QueryWhenChanged(query =>
+            {
+                return valueSelector(query.Items);
+            });
+        }
+
         #endregion
 
         #region Watch

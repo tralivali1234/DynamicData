@@ -44,7 +44,7 @@ namespace DynamicData.Kernel
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            return obj is ItemWithValue<TObject, TValue> && Equals((ItemWithValue<TObject, TValue>) obj);
+            return obj is ItemWithValue<TObject, TValue> value && Equals(value);
         }
 
         /// <inheritdoc />
@@ -56,27 +56,12 @@ namespace DynamicData.Kernel
             }
         }
 
-        /// <summary>
-        /// Implements the operator ==.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
+
         public static bool operator ==(ItemWithValue<TObject, TValue> left, ItemWithValue<TObject, TValue> right)
         {
             return Equals(left, right);
         }
-
-        /// <summary>
-        /// Implements the operator !=.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
+        
         public static bool operator !=(ItemWithValue<TObject, TValue> left, ItemWithValue<TObject, TValue> right)
         {
             return !Equals(left, right);

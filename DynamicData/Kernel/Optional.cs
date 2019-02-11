@@ -49,7 +49,7 @@ namespace DynamicData.Kernel
         /// <param name="value">The value.</param>
         internal Optional(T value)
         {
-            if (ReferenceEquals(value, null))
+            if (value == null)
             {
                 HasValue = false;
                 _value = default;

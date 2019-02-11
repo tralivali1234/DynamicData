@@ -3,7 +3,7 @@
 namespace DynamicData.Kernel
 {
     /// <summary>
-    /// Continuation container used for the else optator on an option object.
+    /// Continuation container used for the else operator on an option object.
     /// </summary>
     public sealed class OptionElse
     {

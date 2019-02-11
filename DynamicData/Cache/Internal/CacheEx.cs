@@ -15,7 +15,7 @@ namespace DynamicData.Cache.Internal
         }
 
 
-        public static void Clone<TKey, TObject>(this IDictionary<TKey, TObject> souce, IChangeSet<TObject, TKey> changes)
+        public static void Clone<TKey, TObject>(this IDictionary<TKey, TObject> source, IChangeSet<TObject, TKey> changes)
         {
             var enumerable = changes.ToConcreteType();
             foreach (var item in enumerable)
@@ -24,10 +24,39 @@ namespace DynamicData.Cache.Internal
                 {
                     case ChangeReason.Update:
                     case ChangeReason.Add:
-                        souce[item.Key] = item.Current;
+                        source[item.Key] = item.Current;
                         break;
                     case ChangeReason.Remove:
-                        souce.Remove(item.Key);
+                        source.Remove(item.Key);
+                        break;
+                }
+            }
+        }
+
+        public static void Clone<TKey, TObject>(this List<TObject> source, IChangeSet<TObject, TKey> changes)
+        {
+            source.Filter(changes, null);
+        }
+
+        public static void Filter<TKey, TObject>(this List<TObject> source, IChangeSet<TObject, TKey> changes, Func<TObject, bool> filter)
+        {
+            foreach (var item in changes.ToConcreteType())
+            {
+                switch (item.Reason)
+                {
+                    case ChangeReason.Add:
+
+                        if (filter == null || filter(item.Current))
+                            source.Add(item.Current);
+                        break;
+                    case ChangeReason.Update:
+                        source.Remove(item.Previous.Value);
+
+                        if (filter == null || filter(item.Current))
+                            source.Add(item.Current);
+                        break;
+                    case ChangeReason.Remove:
+                        source.Remove(item.Current);
                         break;
                 }
             }

@@ -124,8 +124,7 @@ namespace DynamicData.Kernel
         /// <returns></returns>
         public static Optional<TValue> Lookup<TValue, TKey>(this IDictionary<TKey, TValue> source, TKey key)
         {
-            TValue contained;
-            bool result = source.TryGetValue(key, out contained);
+            bool result = source.TryGetValue(key, out var contained);
             return result ? contained : Optional.None<TValue>();
         }
 
