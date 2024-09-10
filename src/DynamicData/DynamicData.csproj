@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net462;net6.0;net7.0;net8.0</TargetFrameworks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IsPackable>true</IsPackable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Reactive" Version="6.0.1" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <Title>Dynamic Data</Title>
+    <Description>
+Bring the power of Rx to collections using Dynamic Data.
+Dynamic Data is a comprehensive caching and data manipulation solution which introduces domain centric observable collections.
+      Linq extensions enable dynamic filtering, sorting, grouping, transforms, binding, pagination, data virtualisation, expiration, disposal management plus more.
+    </Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+
+    <!-- Group nested ObservableCacheEx.x.cs classes with ObservableCacheEx.cs -->
+    <Compile Remove="**\ObservableCacheEx.*.cs" />
+  
+    <Compile Include="**\ObservableCacheEx.*.cs">
+      <DependentUpon>ObservableCacheEx.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>
